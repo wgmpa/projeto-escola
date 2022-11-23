@@ -74,7 +74,7 @@ class alunosControllers {
      try {
         const { id } = req.params;
         const {cpf, nome, email,idade} = req.body
-        const alunoCad = await Alunos.findOne({id})
+        const alunoCad = await Alunos.findOne({id,cpf})
 
         if (!alunoCad) {
             return res.status(404).json('Aluno não encontrado')
@@ -88,11 +88,33 @@ class alunosControllers {
         })
         return res.status(200).json(alunoCad)
      } catch (error) {
-        console.log(error);
+        
         return res.status(500).json('Internal server error')
         
      }
     }
+
+    async delAluno (req,res){
+        try {
+            const {id} = req.params;
+            const { cpf, email,nome, idade} = req.body;
+            const aluno = await Alunos.findById(id);
+
+            if(!aluno) {
+                return res.status(404).json({message:'Aluno não encontrado'})
+            }
+
+            const delAluno = await Alunos.deleteOne({id})
+
+            return res.status(200).json(delAluno)
+
+        } catch (error) {
+            
+            return res.status(500).json('Internal server error')
+        }
+    }
+
+
 }
 
 export default new alunosControllers()

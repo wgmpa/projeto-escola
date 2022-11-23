@@ -10,5 +10,6 @@ routes.get('/aluno/:id', alunosControllers.mostrarAluno)
 routes.get('/alunocpf/:cpf',alunosControllers.mostrarAlunoCpf)
 
 routes.post('/aluno', alunosControllers.createAluno)
-routes.put('/aluno/:id', alunosControllers.alteraAluno)
+routes.put('/aluno/:cpf', alunosControllers.alteraAluno)
+routes.delete('/aluno/:id', alunosControllers.delAluno)
 export default routes
